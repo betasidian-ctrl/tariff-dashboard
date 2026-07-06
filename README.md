@@ -13,9 +13,10 @@
 
 把本目录 `outputs/tariff-dashboard/` 下的全部文件作为静态站点根目录发布即可。
 
-当前手动发布地址：
+当前公开发布地址：
 
 - Netlify: https://magnificent-bombolone-8e7242.netlify.app
+- GitHub: https://github.com/betasidian-ctrl/tariff-dashboard
 
 常见方式：
 
@@ -23,7 +24,7 @@
 - Vercel / Netlify：新建静态站点，项目根目录指向本目录，无需构建命令。
 - 内网服务器：把本目录复制到 Nginx/Apache 静态目录。
 
-当前 Netlify 项目仍显示 `Last deployed from Netlify Drop`，属于手动上传版本。要实现日常自动更新，需要先把本目录推送到一个 GitHub 仓库，再在 Netlify 中连接该仓库；连接完成后，每次提交更新会自动发布到同一个 Netlify 地址。
+当前 Netlify 项目已连接 GitHub 仓库 `betasidian-ctrl/tariff-dashboard`，并开启 main 分支自动发布；每次提交更新会自动发布到同一个 Netlify 地址。
 
 ## 数据更新
 
