@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="面向家电、制冷、空调零部件的中国出口目的国关税、综合税费和AD/CVD查询看板。" />
+  <title>家电制冷空调零部件关税查询</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">税</div>
+        <div>
+          <h1>关税看板</h1>
+          <p>公开查询版</p>
+        </div>
+      </div>
+
+      <label class="field">
+        <span>搜索</span>
+        <input id="searchInput" type="search" placeholder="零件、HS编码、国家/地区" />
+      </label>
+
+      <label class="field">
+        <span>展示层级</span>
+        <select id="levelFilter">
+          <option value="large">大类</option>
+          <option value="mid">中类</option>
+          <option value="small">小类</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>品类大类</span>
+        <select id="largeFilter"></select>
+      </label>
+
+      <label class="field">
+        <span>品类中类</span>
+        <select id="midFilter"></select>
+      </label>
+
+      <label class="field">
+        <span>品类小类</span>
+        <select id="smallFilter"></select>
+      </label>
+
+      <label class="field">
+        <span>国家/地区</span>
+        <select id="countryFilter"></select>
+      </label>
+
+      <label class="field">
+        <span>状态</span>
+        <select id="statusFilter">
+          <option value="all">全部</option>
+          <option value="usable">有可用税率线索</option>
+          <option value="verify">需补资料核验</option>
+          <option value="risk">高风险</option>
+        </select>
+      </label>
+
+      <div class="legend">
+        <div><span class="dot usable"></span>可初筛</div>
+        <div><span class="dot verify"></span>需补资料</div>
+        <div><span class="dot risk"></span>高风险</div>
+      </div>
+
+      <button id="exportBtn" class="primary">导出当前表格 CSV</button>
+    </aside>
+
+    <main class="main">
+      <section class="topbar">
+        <div>
+          <h2>家电制冷空调零部件关税查询</h2>
+          <p>按行业常见零部件归类展示中国出口到主要目的国的关税、综合税费和AD/CVD；数字可点击查看官方来源。</p>
+        </div>
+        <div class="stamp">更新口径：2026-07-06</div>
+      </section>
+
+      <section class="metrics" aria-label="概览指标">
+        <div class="metric">
+          <span>国家/地区</span>
+          <strong id="countryCount">0</strong>
+        </div>
+        <div class="metric">
+          <span>大类</span>
+          <strong id="productCount">0</strong>
+        </div>
+        <div class="metric">
+          <span>中类</span>
+          <strong id="midCount">0</strong>
+        </div>
+        <div class="metric warn">
+          <span>小类</span>
+          <strong id="smallCount">0</strong>
+        </div>
+      </section>
+
+      <section class="tabs" aria-label="视图">
+        <button class="tab active" data-view="matrix">层级矩阵</button>
+        <button class="tab" data-view="products">采购品类</button>
+        <button class="tab" data-view="countries">国家口径</button>
+        <button class="tab" data-view="missing">补资料</button>
+      </section>
+
+      <section id="matrixView" class="view active">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>状态</th>
+                <th>层级</th>
+                <th>品类</th>
+                <th>规模/物料</th>
+                <th>采用HS/置信度</th>
+                <th>国家/地区</th>
+                <th>关税率</th>
+                <th>综合税费率</th>
+                <th>AD/CVD</th>
+                <th>含AD/CVD综合</th>
+                <th>下一步/判断依据</th>
+              </tr>
+            </thead>
+            <tbody id="matrixBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="productsView" class="view">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>品类大类</th>
+                <th>品类中类</th>
+                <th>品类小类</th>
+                <th>关税归类</th>
+                <th>采用HS</th>
+                <th>规模</th>
+                <th>物料数</th>
+                <th>物料描述样例</th>
+              </tr>
+            </thead>
+            <tbody id="productsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="countriesView" class="view">
+        <div class="country-grid" id="countryGrid"></div>
+      </section>
+
+      <section id="missingView" class="view">
+        <div class="missing-grid" id="missingGrid"></div>
+      </section>
+
+      <section class="reference-panel">
+        <div>
+          <h3>计算说明和来源</h3>
+          <p>表格只放结果数字；完整公式、附加税口径、AD/CVD案号和官方来源在这里和右侧详情查看。公开版不展示企业内部采购金额。</p>
+        </div>
+        <div class="reference-grid" id="referenceGrid"></div>
+      </section>
+    </main>
+
+    <aside class="detail">
+      <div class="detail-head">
+        <span id="detailBadge" class="badge verify">选择一行</span>
+        <h3 id="detailTitle">查看关税判断</h3>
+      </div>
+      <dl>
+        <dt>税率/口径</dt>
+        <dd id="detailRate">点击表格行后显示。</dd>
+        <dt>综合到岸税费率</dt>
+        <dd id="detailLanded">-</dd>
+        <dt>综合税费模型</dt>
+        <dd id="detailLandedNote">标准模型：CIF=100,000，海运，1CBM/100kg/100件。</dd>
+        <dt>AD/CVD反倾销反补贴</dt>
+        <dd id="detailAdCvd">-</dd>
+        <dt>含AD/CVD综合税费</dt>
+        <dd id="detailLandedAdCvd">-</dd>
+        <dt>风险点</dt>
+        <dd id="detailRisk">-</dd>
+        <dt>默认判断依据</dt>
+        <dd id="detailAssumption">-</dd>
+        <dt>还缺什么</dt>
+        <dd id="detailMissing">-</dd>
+        <dt>下一步</dt>
+        <dd id="detailAction">-</dd>
+        <dt>官方来源</dt>
+        <dd id="detailSource">-</dd>
+      </dl>
+    </aside>
+  </div>
+  <script src="./data.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
