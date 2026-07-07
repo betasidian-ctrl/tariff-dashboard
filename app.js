@@ -229,10 +229,11 @@ const AD_CVD_BOOK = [
   {
     country: "美国",
     prefix: "7607",
-    rate: 95.15,
-    text: "95.15%（铝箔中国-wide AD现金保证金；CVD按出口商另查）",
-    source: "Federal Register Aluminum Foil from China",
-    url: "https://www.federalregister.gov/documents/2023/03/28/2023-06363/antidumping-and-countervailing-duty-orders-on-certain-aluminum-foil-from-the-peoples-republic-of"
+    rate: 129.82,
+    text: "129.82%（默认采用China-wide AD 105.80% + CVD非抽样企业24.02%；已列企业AD 26.60%/29.89%/28.01%，CVD 22.10%或120.81%，按生产商/出口商切换）",
+    source: "Federal Register A-570-053 / C-570-054",
+    url: "https://www.federalregister.gov/documents/2026/05/27/2026-10525/certain-aluminum-foil-from-the-peoples-republic-of-china-amended-final-results-of-antidumping-duty",
+    extraUrl: "https://www.federalregister.gov/documents/2026/02/18/2026-03205/certain-aluminum-foil-from-the-peoples-republic-of-china-final-results-of-countervailing-duty"
   },
   {
     country: "美国",
@@ -372,6 +373,17 @@ function officialAdCvdUrl(country) {
 
 function sourceUrlForAdCvd(country, hs) {
   return adCvdForCountry(country, hs).url || officialAdCvdUrl(country);
+}
+
+function adCvdSourceLinks(country, hs) {
+  const ad = adCvdForCountry(country, hs);
+  if (ad.extraUrl) {
+    return [
+      `<a href="${ad.url}" target="_blank" rel="noopener noreferrer">AD官方案号</a>`,
+      `<a href="${ad.extraUrl}" target="_blank" rel="noopener noreferrer">CVD官方案号</a>`
+    ];
+  }
+  return [`<a href="${ad.url || officialAdCvdUrl(country)}" target="_blank" rel="noopener noreferrer">AD/CVD或贸易救济</a>`];
 }
 
 function firstHs(row) {
@@ -587,7 +599,7 @@ function renderReferences() {
     ["标准模型", "CIF=100,000；海运；1CBM/100kg/100件。综合税费按关税、进口VAT/GST/消费税、清关/处理费折算。"],
     ["表格数字", "大类/中类含多个HS时，主表显示最高税率，便于快速识别成本压力；点击行看完整HS拆分。"],
     ["美国", "无进口VAT；综合税费含MPF 0.3464%和海运HMF 0.125%；Section 122/232/301已进入采用关税率。"],
-    ["AD/CVD", "只把已能对应到公开案号或现金保证金的项目并入含AD/CVD综合；企业级税率需要生产商/出口商进一步确认。"],
+    ["AD/CVD", "只把已能对应到公开案号或现金保证金的项目并入含AD/CVD综合；7607铝箔默认采用美国A-570-053/C-570-054当前现金保证金组合，企业级税率需要生产商/出口商进一步确认。"],
     ["欧盟/墨西哥/日本", "欧盟默认德国进口VAT 19%；墨西哥含IVA 16%和DTA 0.8%；日本含消费税10%。"],
     ["每日更新", "自动化每日核验官方来源后更新看板数据；若没有官方有效变动，保留原数据并写明检查结果。"]
   ];
@@ -614,7 +626,7 @@ function selectDetail(row) {
   document.querySelector("#detailSource").innerHTML = [
     `<a href="${officialDutyUrl(row.country, firstHs(row))}" target="_blank" rel="noopener noreferrer">官方税则</a>`,
     `<a href="${officialLandedUrl(row.country)}" target="_blank" rel="noopener noreferrer">进口税费/清关费</a>`,
-    `<a href="${sourceUrlForAdCvd(row.country, firstHs(row))}" target="_blank" rel="noopener noreferrer">AD/CVD或贸易救济</a>`
+    ...adCvdSourceLinks(row.country, firstHs(row))
   ].join(" / ");
   document.querySelector("#detailAssumption").textContent = row.assumptions || "-";
   document.querySelector("#detailMissing").textContent = row.missingFields || "-";
