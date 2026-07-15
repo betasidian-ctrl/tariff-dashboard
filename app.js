@@ -278,10 +278,20 @@ const AD_CVD_BOOK = [
   {
     country: "欧盟",
     prefix: "7210",
-    rate: 0,
-    text: "0%采用；钢铁件需查TARIC反倾销/反补贴和CBAM",
-    source: "EU TARIC / EUR-Lex",
-    url: "https://ec.europa.eu/taxation_customs/dds2/taric/taric_consultation.jsp"
+    rate: 50,
+    text: "50.00%（欧盟钢铁保障措施：TRQ内0%保障税，超配额适用50% out-of-quota duty；需按CN和配额余额确认是否触发）",
+    source: "Regulation (EU) 2026/1384 / Access2Markets",
+    url: "https://trade.ec.europa.eu/access-to-markets/en/news/new-eu-safeguards-steel-imports-third-countries",
+    extraUrl: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601384"
+  },
+  {
+    country: "欧盟",
+    prefix: "7306",
+    rate: 50,
+    text: "50.00%（欧盟钢铁保障措施：TRQ内0%保障税，超配额适用50% out-of-quota duty；焊接钢管需按CN和配额余额确认）",
+    source: "Regulation (EU) 2026/1384 / Access2Markets",
+    url: "https://trade.ec.europa.eu/access-to-markets/en/news/new-eu-safeguards-steel-imports-third-countries",
+    extraUrl: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202601384"
   },
   {
     country: "印度",
@@ -415,7 +425,7 @@ function comprehensiveRate(country, hs, adCvdRate = 0) {
   return {
     duty,
     total,
-    text: `${total.toFixed(1)}%（标准CIF=100,000；关税${duty.toFixed(1)}% + ${adCvdRate ? `AD/CVD${adCvdRate.toFixed(2)}% + ` : ""}${model.sws ? `SWS${sws.toFixed(1)}% + ` : ""}税费${model.vat}%按CIF+关税${adCvdRate ? "+AD/CVD" : ""}计 + 清关/处理${model.fee}%）`,
+    text: `${total.toFixed(1)}%（标准CIF=100,000；关税${duty.toFixed(1)}% + ${adCvdRate ? `AD/CVD/救济${adCvdRate.toFixed(2)}% + ` : ""}${model.sws ? `SWS${sws.toFixed(1)}% + ` : ""}税费${model.vat}%按CIF+关税${adCvdRate ? "+AD/CVD/救济" : ""}计 + 清关/处理${model.fee}%）`,
     note: model.note
   };
 }
@@ -546,7 +556,7 @@ function renderMatrix() {
       <td class="num">${rateLink(row.dutyShort, officialDutyUrl(row.country, firstHs(row)), "打开目的国官方税则")}</td>
       <td class="num">${rateLink(row.landedShort, officialLandedUrl(row.country), "打开进口税费/清关费来源")}</td>
       <td class="num ${row.adCvdShort !== "0.0%" ? "danger-num" : ""}">${rateLink(row.adCvdShort, sourceUrlForAdCvd(row.country, firstHs(row)), "打开AD/CVD或贸易救济来源")}</td>
-      <td class="num ${row.adCvdShort !== "0.0%" ? "danger-num" : ""}">${rateLink(row.landedAdCvdShort, sourceUrlForAdCvd(row.country, firstHs(row)), "打开含AD/CVD综合税费来源")}</td>
+      <td class="num ${row.adCvdShort !== "0.0%" ? "danger-num" : ""}">${rateLink(row.landedAdCvdShort, sourceUrlForAdCvd(row.country, firstHs(row)), "打开含AD/CVD/救济综合税费来源")}</td>
       <td><button class="link-button" type="button">查看说明</button></td>
     </tr>
   `).join("");
@@ -599,7 +609,7 @@ function renderReferences() {
     ["标准模型", "CIF=100,000；海运；1CBM/100kg/100件。综合税费按关税、进口VAT/GST/消费税、清关/处理费折算。"],
     ["表格数字", "大类/中类含多个HS时，主表显示最高税率，便于快速识别成本压力；点击行看完整HS拆分。"],
     ["美国", "无进口VAT；综合税费含MPF 0.3464%和海运HMF 0.125%；Section 122/232/301已进入采用关税率。"],
-    ["AD/CVD", "只把已能对应到公开案号或现金保证金的项目并入含AD/CVD综合；7607铝箔默认采用美国A-570-053/C-570-054当前现金保证金组合，企业级税率需要生产商/出口商进一步确认。"],
+    ["AD/CVD/救济", "只把已能对应到公开案号、现金保证金或保障措施公式的项目并入含AD/CVD/救济综合；7607铝箔默认采用美国A-570-053/C-570-054当前现金保证金组合，欧盟7210/7306钢材按TRQ外50%保障税做高风险口径，企业级/配额状态需进一步确认。"],
     ["欧盟/墨西哥/日本", "欧盟默认德国进口VAT 19%；墨西哥含IVA 16%和DTA 0.8%；日本含消费税10%。"],
     ["每日更新", "自动化每日核验官方来源后更新看板数据；若没有官方有效变动，保留原数据并写明检查结果。"]
   ];
@@ -641,7 +651,7 @@ function switchView(view) {
 
 function exportCsv() {
   const rows = matrixRows();
-  const header = ["状态", "层级", "分类", "规模", "物料数", "采用HS", "置信度", "默认假设", "缺少字段", "国家", "关税率", "综合税费率", "AD/CVD", "含AD/CVD综合", "关税明细", "综合税费明细", "AD/CVD明细", "含AD/CVD明细", "下一步", "来源"];
+  const header = ["状态", "层级", "分类", "规模", "物料数", "采用HS", "置信度", "默认假设", "缺少字段", "国家", "关税率", "综合税费率", "AD/CVD/救济", "含AD/CVD/救济综合", "关税明细", "综合税费明细", "AD/CVD/救济明细", "含AD/CVD/救济明细", "下一步", "来源"];
   const csv = [header, ...rows.map(r => [statusLabel(r.status), r.level, r.label, formatScale(r.amount), r.materialCount, r.hs, r.confidence, r.assumptions, r.missingFields, r.country, r.dutyShort, r.landedShort, r.adCvdShort, r.landedAdCvdShort, r.rate, r.landedRate, r.adCvd, r.landedAdCvd, r.action, r.source])]
     .map(line => line.map(v => `"${String(v).replaceAll('"', '""')}"`).join(","))
     .join("\n");
