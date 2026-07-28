@@ -257,7 +257,7 @@ const AD_CVD_BOOK = [
     rate: 0,
     text: "0%采用；钢板存在CORE/钢铁贸易救济案号风险，需按钢种和出口商核案号",
     source: "ITA ACCESS / CBP AD-CVD",
-    url: "https://access.trade.gov/public/FRNoticesListLayout.aspx"
+    url: "https://access.trade.gov/frnotices"
   },
   {
     country: "美国",
@@ -265,7 +265,7 @@ const AD_CVD_BOOK = [
     rate: 0,
     text: "0%采用；钢管存在AD/CVD案号风险，需按管型/尺寸/出口商核案号",
     source: "ITA ACCESS / CBP AD-CVD",
-    url: "https://access.trade.gov/public/FRNoticesListLayout.aspx"
+    url: "https://access.trade.gov/frnotices"
   },
   {
     country: "美国",
@@ -273,7 +273,7 @@ const AD_CVD_BOOK = [
     rate: 0,
     text: "0%采用；钢制压力容器先按232计，AD/CVD按具体案号复核",
     source: "ITA ACCESS / CBP AD-CVD",
-    url: "https://access.trade.gov/public/FRNoticesListLayout.aspx"
+    url: "https://access.trade.gov/frnotices"
   },
   {
     country: "欧盟",
@@ -364,7 +364,7 @@ function officialLandedUrl(country) {
 
 function officialAdCvdUrl(country) {
   const urls = {
-    "美国": "https://access.trade.gov/public/FRNoticesListLayout.aspx",
+    "美国": "https://access.trade.gov/frnotices",
     "欧盟": "https://trade.ec.europa.eu/access-to-markets/en/content/trade-defence",
     "墨西哥": "https://www.gob.mx/se/acciones-y-programas/upci",
     "印度": "https://www.dgtr.gov.in/",
