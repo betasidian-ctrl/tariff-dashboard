@@ -239,9 +239,9 @@ const AD_CVD_BOOK = [
     country: "美国",
     prefix: "3827",
     rate: 216.37,
-    text: "216.37%（HFC混合制冷剂AD反规避/现金保证金采用值）",
-    source: "ITA HFC blends from China",
-    url: "https://www.trade.gov/press-release/us-department-commerce-announces-affirmative-preliminary-circumvention-rulings"
+    text: "216.37%（HFC混合制冷剂A-570-028 China-wide现金保证金默认值；Sanmei组2026-07-30最终结果为182.61%，Zhejiang Yonghe本期无出货，按出口商切换）",
+    source: "Federal Register A-570-028",
+    url: "https://www.federalregister.gov/documents/full_text/text/2026/07/30/2026-15398.txt"
   },
   {
     country: "美国",
@@ -609,7 +609,7 @@ function renderReferences() {
     ["标准模型", "CIF=100,000；海运；1CBM/100kg/100件。综合税费按关税、进口VAT/GST/消费税、清关/处理费折算。"],
     ["表格数字", "大类/中类含多个HS时，主表显示最高税率，便于快速识别成本压力；点击行看完整HS拆分。"],
     ["美国", "无进口VAT；综合税费含MPF 0.3464%和海运HMF 0.125%；Section 122 10%已于2026-07-24到期，FLIP Section 301 12.5%或对应豁免、232、既有China301已进入采用关税率。来源：<a href=\"https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-takes-action-forced-labor-section-301-investigations\" target=\"_blank\" rel=\"noopener noreferrer\">USTR</a> / <a href=\"https://www.whitehouse.gov/presidential-actions/2026/07/actions-by-the-united-states-in-the-investigations-under-section-301-of-the-trade-act-of-1974-of-the-acts-policies-and-practices-of-60-economies-related-to-the-failure-of-each-economy-to-impose-and/\" target=\"_blank\" rel=\"noopener noreferrer\">White House</a>。"],
-    ["AD/CVD/救济", "只把已能对应到公开案号、现金保证金或保障措施公式的项目并入含AD/CVD/救济综合；7607铝箔默认采用美国A-570-053/C-570-054当前现金保证金组合，欧盟7210/7306钢材按TRQ外50%保障税做高风险口径，企业级/配额状态需进一步确认。"],
+    ["AD/CVD/救济", "只把已能对应到公开案号、现金保证金或保障措施公式的项目并入含AD/CVD/救济综合；7607铝箔默认采用美国A-570-053/C-570-054当前现金保证金组合，3827 HFC混合制冷剂默认采用美国A-570-028 China-wide 216.37%且Sanmei组按182.61%切换，欧盟7210/7306钢材按TRQ外50%保障税做高风险口径，企业级/配额状态需进一步确认。"],
     ["欧盟/墨西哥/日本", "欧盟默认德国进口VAT 19%；墨西哥含IVA 16%和DTA 0.8%；日本含消费税10%。"],
     ["每日更新", "自动化每日核验官方来源后更新看板数据；若没有官方有效变动，保留原数据并写明检查结果。"]
   ];
