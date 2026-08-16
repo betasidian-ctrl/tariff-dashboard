@@ -1,5 +1,5 @@
 window.TARIFF_DATA = {
-  "generatedAt": "2026-07-31",
+  "generatedAt": "2026-08-16",
   "sourceWorkbook": "26年1-6月累计采购接收汇总.xlsx",
   "publicMode": true,
   "countries": [
@@ -1259,7 +1259,7 @@ window.TARIFF_DATA = {
       "hs": "7608.20.00",
       "confidence": "中高",
       "assumption": "采用铝合金管默认子目；已制成换热器总成时改8419/8418。",
-      "tariffNote": "美国一般税率5.7%；铝232高风险，FLIP301对232铝制品默认豁免。",
+      "tariffNote": "美国一般税率5.7%；铝232高风险，FLIP301对232铝制品默认豁免；铝挤压件AD/CVD需按A-570-158/C-570-159或C-570-968和供应商确认。",
       "missingFields": "是否合金管、是否已制成换热器零件、外径/形状",
       "status": "risk",
       "amount": 10,
@@ -1721,7 +1721,7 @@ window.TARIFF_DATA = {
       "hs": "7608.20.00",
       "confidence": "中高",
       "assumption": "采用铝合金管默认子目；已制成换热器总成时改8419/8418。",
-      "tariffNote": "美国一般税率5.7%；铝232高风险，FLIP301对232铝制品默认豁免。",
+      "tariffNote": "美国一般税率5.7%；铝232高风险，FLIP301对232铝制品默认豁免；铝挤压件AD/CVD需按A-570-158/C-570-159或C-570-968和供应商确认。",
       "missingFields": "是否合金管、是否已制成换热器零件、外径/形状",
       "status": "risk",
       "amount": 3,
@@ -4886,7 +4886,7 @@ window.TARIFF_DATA = {
       "hs": "7608.20.00",
       "confidence": "中高",
       "assumption": "采用铝合金管默认子目；已制成换热器总成时改8419/8418。",
-      "tariffNote": "美国一般税率5.7%；铝232高风险，FLIP301对232铝制品默认豁免。",
+      "tariffNote": "美国一般税率5.7%；铝232高风险，FLIP301对232铝制品默认豁免；铝挤压件AD/CVD需按A-570-158/C-570-159或C-570-968和供应商确认。",
       "missingFields": "是否合金管、是否已制成换热器零件、外径/形状",
       "status": "risk",
       "amount": 3,
