@@ -223,8 +223,8 @@ const AD_CVD_BOOK = [
     prefix: "7608",
     rate: 365.13,
     text: "365.13%（铝挤压件A-570-158/C-570-159 China-wide默认值；A-570-967在2026-08-17最终复审确认China-wide AD 86.01%现金保证金；C-570-968在2026-08-11最终复审列明6家企业CVD 164.29%、all-others 7.37%，按案号/生产商切换）",
-    source: "ITA Aluminum Extrusions A-570-158/C-570-159；Federal Register A-570-967 / C-570-968",
-    url: "https://www.trade.gov/final-determinations-ad-cvd-investigations-aluminum-extrusions-multiple-countries",
+    source: "ITA ACCESS Aluminum Extrusions A-570-158/C-570-159；Federal Register A-570-967 / C-570-968",
+    url: "https://access.trade.gov/frnotices",
     extraUrl: "https://www.federalregister.gov/documents/full_text/text/2026/08/11/2026-16362.txt",
     extraLinks: [
       { label: "2026 AD复审", url: "https://www.federalregister.gov/documents/full_text/text/2026/08/17/2026-16753.txt" }
