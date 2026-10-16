@@ -1,5 +1,5 @@
 window.TARIFF_DATA = {
-  "generatedAt": "2026-08-26",
+  "generatedAt": "2026-10-16",
   "sourceWorkbook": "26年1-6月累计采购接收汇总.xlsx",
   "publicMode": true,
   "countries": [

@@ -219,6 +219,14 @@ const LANDED_MODEL = {
 
 const AD_CVD_BOOK = [
   {
+    country: "英国",
+    prefix: "7210.49.00",
+    rate: 50,
+    text: "50.00%（英国钢铁TRQ配额外风险情景；2026-07-01生效，72104900属于第4类金属镀层板；配额内本项0%，实际需核验配额及豁免。该项为钢铁贸易措施，不是AD/CVD。2026-10-01移除的72173049/72173090不影响本编码）",
+    source: "GOV.UK steel trade measure / Category 4",
+    url: "https://www.gov.uk/government/publications/uks-steel-trade-measure-from-1-july-2026/uks-steel-trade-measure-from-1-july-2026"
+  },
+  {
     country: "美国",
     prefix: "7608",
     rate: 365.13,
